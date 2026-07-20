@@ -1,0 +1,63 @@
+```
+# Dependencies
+node_modules/
+vendor/
+target/
+**/Cargo.lock
+
+# Compiled/Build artifacts
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+build/
+dist/
+bin/
+
+# Go specific
+*.mod
+*.sum
+go.work.sum
+
+# Rust specific
+**/Cargo.lock
+*.rs.bk
+
+# Web/JS specific
+*.min.js
+*.min.css
+*.map
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python (if any Python files detected later)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.eggs/
+```
