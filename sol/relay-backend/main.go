@@ -8,6 +8,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"path/filepath"
 	"sync"
 	"time"
 
@@ -227,20 +228,45 @@ func (s *WispServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Serve frontend static files
-	var filePath string
-	if r.URL.Path == "/" || r.URL.Path == "" {
-		filePath = "../frontend/index.html"
-	} else if r.URL.Path == "/sw.js" {
-		filePath = "../service-worker/sw.js"
-	} else {
-		filePath = "../frontend" + r.URL.Path
+	// Get the directory where the binary is located
+	execPath, err := os.Executable()
+	if err != nil {
+		http.Error(w, "Server error", http.StatusInternalServerError)
+		return
 	}
+	execDir := filepath.Dir(execPath)
 	
-	// Check if file exists
-	if _, err := os.Stat(filePath); os.IsNotExist(err) {
-		// For SPA routing (apps, games, browser sections), serve index.html
-		indexPath := "../frontend/index.html"
+	// Determine base path - if running from sol/relay-backend, frontend is in ../frontend
+	// If running from repo root after build, frontend is in sol/frontend
+	var frontendDir, swDir string
+	
+	// Check relative to executable
+	if _, err := os.Stat(filepath.Join(execDir, "../frontend/index.html")); err == nil {
+		frontendDir = filepath.Join(execDir, "../frontend")
+		swDir = filepath.Join(execDir, "../service-worker")
+	} else if _, err := os.Stat(filepath.Join(execDir, "../../sol/frontend/index.html")); err == nil {
+		frontendDir = filepath.Join(execDir, "../../sol/frontend")
+		swDir = filepath.Join(execDir, "../../sol/service-worker")
+	} else {
+		// Fallback to relative paths
+		frontendDir = "../frontend"
+		swDir = "../service-worker"
+	}
+
+	// Handle service worker
+	if r.URL.Path == "/sw.js" {
+		swPath := filepath.Join(swDir, "sw.js")
+		if _, err := os.Stat(swPath); err == nil {
+			http.ServeFile(w, r, swPath)
+			return
+		}
+		http.NotFound(w, r)
+		return
+	}
+
+	// Handle static files (CSS, JS, JSON, images)
+	if r.URL.Path == "/" || r.URL.Path == "" {
+		indexPath := filepath.Join(frontendDir, "index.html")
 		if _, err := os.Stat(indexPath); err == nil {
 			http.ServeFile(w, r, indexPath)
 			return
@@ -248,8 +274,22 @@ func (s *WispServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
+
+	// Serve static files from frontend directory
+	filePath := filepath.Join(frontendDir, r.URL.Path)
+	if _, err := os.Stat(filePath); err == nil {
+		http.ServeFile(w, r, filePath)
+		return
+	}
+
+	// For SPA routing, serve index.html for unknown paths
+	indexPath := filepath.Join(frontendDir, "index.html")
+	if _, err := os.Stat(indexPath); err == nil {
+		http.ServeFile(w, r, indexPath)
+		return
+	}
 	
-	http.ServeFile(w, r, filePath)
+	http.NotFound(w, r)
 }
 
 func main() {
