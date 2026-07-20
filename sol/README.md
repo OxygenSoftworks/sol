@@ -1,4 +1,6 @@
-# Diamond Proxy
+# Sol Proxy
+
+![Sol Logo](sol.svg)
 
 High-performance interception-based web proxy using WebAssembly and Wisp protocol.
 
@@ -12,7 +14,7 @@ Rust-based TLS encryption module compiled to WebAssembly for client-side encrypt
 cd wasm-transport
 rustup target add wasm32-unknown-unknown
 cargo build --release --target wasm32-unknown-unknown
-wasm-bindgen --out-dir ../frontend/wasm target/wasm32-unknown-unknown/release/diamond_transport.wasm
+wasm-bindgen --out-dir ../frontend/wasm target/wasm32-unknown-unknown/release/sol_transport.wasm
 ```
 
 ### 2. Service Worker (`service-worker/`)
@@ -25,8 +27,8 @@ Go-based high-throughput Wisp server that demultiplexes streams and routes traff
 ```bash
 cd relay-backend
 go mod tidy
-go build -o diamond-relay
-./diamond-relay
+go build -o sol-relay
+./sol-relay
 ```
 
 **Environment Variables:**
@@ -37,11 +39,17 @@ Vanilla JS/HTML/CSS interface with dynamic app/game loading from JSON files.
 
 ## Deployment
 
-### Render
-1. Create a new Web Service
-2. Set Build Command: `cd relay-backend && go build -o diamond-relay`
-3. Set Start Command: `./diamond-relay`
-4. Serve frontend static files from the `frontend/` directory
+### Render (One-Click Deploy)
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/yourusername/sol)
+
+**Manual Setup:**
+1. Create a new Web Service on Render
+2. Connect your repository
+3. Set Build Command: `cd relay-backend && go build -o sol-relay`
+4. Set Start Command: `./sol-relay`
+5. Add environment variable: `PORT=8080`
+6. The frontend files in `frontend/` will be served automatically by the Go server
 
 ### Railway
 1. Create a new project
@@ -52,7 +60,7 @@ Vanilla JS/HTML/CSS interface with dynamic app/game loading from JSON files.
 ## File Structure
 
 ```
-diamond/
+sol/
 ├── wasm-transport/
 │   ├── Cargo.toml
 │   └── src/

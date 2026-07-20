@@ -1,4 +1,4 @@
-//! Diamond Wasm Transport - High-performance TLS encryption module
+//! Sol Wasm Transport - High-performance TLS encryption module
 //! Provides client-side TLS encryption for proxied HTTP requests
 
 use wasm_bindgen::prelude::*;

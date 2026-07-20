@@ -240,7 +240,7 @@ func main() {
 	http.Handle("/", server)
 	http.HandleFunc("/wisp", server.handleWebSocket)
 
-	log.Printf("Diamond Relay Server starting on port %s", port)
+	log.Printf("Sol Relay Server starting on port %s", port)
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		log.Fatal("ListenAndServe error:", err)
