@@ -4,7 +4,8 @@ services:
     env: go
     region: oregon
     plan: free
-    buildCommand: cd relay-backend && go build -o sol-relay
+    rootDir: relay-backend
+    buildCommand: go mod tidy && go build -o sol-relay
     startCommand: ./sol-relay
     envVars:
       - key: PORT

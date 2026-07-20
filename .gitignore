@@ -1,4 +1,8 @@
 ```
-# Configuration and render files
-render.yaml
+# Binaries
+sol/relay-backend/sol-relay
+
+# Dependencies
+sol/relay-backend/go.mod
+sol/relay-backend/go.sum
 ```
