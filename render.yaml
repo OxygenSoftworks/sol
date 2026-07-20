@@ -5,7 +5,7 @@ services:
     region: oregon
     plan: free
     buildCommand: cd sol/relay-backend && go build -o sol-relay
-    startCommand: ./sol-relay
+    startCommand: cd sol/relay-backend && ./sol-relay
     envVars:
       - key: PORT
         value: 8080
