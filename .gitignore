@@ -1,4 +1,5 @@
 ```
-# Configuration and render files
-render.yaml
+# Dependencies
+go.mod
+go.sum
 ```
