@@ -1,4 +1,4 @@
-// Diamond Service Worker - Wisp Protocol Multiplexer and Fetch Interceptor
+// Sol Service Worker - Wisp Protocol Multiplexer and Fetch Interceptor
 
 let wasmModule = null;
 let wispConnection = null;
@@ -7,7 +7,7 @@ let streamIdCounter = 1;
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open('diamond-v1').then((cache) => {
+        caches.open('sol-v1').then((cache) => {
             return cache.addAll(['/index.html', '/sw.js']);
         })
     );
@@ -20,7 +20,7 @@ self.addEventListener('activate', (event) => {
 
 async function initWasm() {
     if (!wasmModule) {
-        wasmModule = await import('./wasm/diamond_transport.js');
+        wasmModule = await import('./wasm/sol_transport.js');
         await wasmModule.default();
     }
     return wasmModule;

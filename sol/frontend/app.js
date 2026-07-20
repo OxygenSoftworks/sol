@@ -1,6 +1,6 @@
-// Diamond Frontend - Main Application Logic
+// Sol Frontend - Main Application Logic
 
-class DiamondApp {
+class SolApp {
     constructor() {
         this.currentSection = 'browser';
         this.apps = [];
@@ -195,5 +195,5 @@ class DiamondApp {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    window.diamondApp = new DiamondApp();
+    window.solApp = new SolApp();
 });
