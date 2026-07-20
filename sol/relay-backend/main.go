@@ -226,7 +226,19 @@ func (s *WispServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.ServeFile(w, r, "./frontend/index.html")
+	// Serve frontend files from parent directory
+	filePath := "../frontend" + r.URL.Path
+	if r.URL.Path == "/" || r.URL.Path == "" {
+		filePath = "../frontend/index.html"
+	}
+	
+	// Check if file exists before serving
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		http.NotFound(w, r)
+		return
+	}
+	
+	http.ServeFile(w, r, filePath)
 }
 
 func main() {
