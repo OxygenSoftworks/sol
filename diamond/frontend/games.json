@@ -1,0 +1,44 @@
+[
+    {
+        "name": "2048",
+        "url": "https://play2048.co",
+        "description": "Classic sliding tile puzzle game",
+        "icon": "🎮"
+    },
+    {
+        "name": "Chess.com",
+        "url": "https://www.chess.com/play/computer",
+        "description": "Play chess against AI or friends",
+        "icon": "♟️"
+    },
+    {
+        "name": "Slither.io",
+        "url": "https://slither.io",
+        "description": "Multiplayer snake game",
+        "icon": "🐍"
+    },
+    {
+        "name": "Agar.io",
+        "url": "https://agar.io",
+        "description": "Eat cells and grow bigger",
+        "icon": "🔴"
+    },
+    {
+        "name": "GeoGuessr",
+        "url": "https://www.geoguessr.com",
+        "description": "Guess locations from Street View",
+        "icon": "🌍"
+    },
+    {
+        "name": "Hextris",
+        "url": "https://hextris.io",
+        "description": "Hexagonal puzzle game",
+        "icon": "⬡"
+    },
+    {
+        "name": "Astray",
+        "url": "https://astray.com",
+        "description": "Explore mysterious mazes",
+        "icon": "🗺️"
+    }
+]

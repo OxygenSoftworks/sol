@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Google",
+        "url": "https://www.google.com",
+        "description": "Search engine and web services",
+        "icon": "🔍"
+    },
+    {
+        "name": "YouTube",
+        "url": "https://www.youtube.com",
+        "description": "Video sharing platform",
+        "icon": "▶️"
+    },
+    {
+        "name": "Discord",
+        "url": "https://discord.com/app",
+        "description": "Chat and community platform",
+        "icon": "💬"
+    },
+    {
+        "name": "Twitter",
+        "url": "https://twitter.com",
+        "description": "Social media and news",
+        "icon": "🐦"
+    },
+    {
+        "name": "Reddit",
+        "url": "https://www.reddit.com",
+        "description": "Community discussions and news",
+        "icon": "📱"
+    },
+    {
+        "name": "GitHub",
+        "url": "https://github.com",
+        "description": "Code hosting and collaboration",
+        "icon": "💻"
+    }
+]
