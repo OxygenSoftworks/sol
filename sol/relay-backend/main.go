@@ -221,19 +221,30 @@ func (s *WispServer) cleanupConnection(ws *websocket.Conn) {
 }
 
 func (s *WispServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path == "/wisp" && r.Header.Get("Upgrade") == "websocket" {
+	// Handle WebSocket upgrade for /wisp endpoint
+	if r.URL.Path == "/wisp" {
 		s.handleWebSocket(w, r)
 		return
 	}
 
-	// Serve frontend files from parent directory
-	filePath := "../frontend" + r.URL.Path
+	// Serve frontend static files
+	var filePath string
 	if r.URL.Path == "/" || r.URL.Path == "" {
 		filePath = "../frontend/index.html"
+	} else if r.URL.Path == "/sw.js" {
+		filePath = "../service-worker/sw.js"
+	} else {
+		filePath = "../frontend" + r.URL.Path
 	}
 	
-	// Check if file exists before serving
+	// Check if file exists
 	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		// For SPA routing (apps, games, browser sections), serve index.html
+		indexPath := "../frontend/index.html"
+		if _, err := os.Stat(indexPath); err == nil {
+			http.ServeFile(w, r, indexPath)
+			return
+		}
 		http.NotFound(w, r)
 		return
 	}
